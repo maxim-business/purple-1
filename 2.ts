@@ -1,7 +1,8 @@
 "use strict";
 
 var makeOrdinal = require("./makeOrdinal");
-// var isFinite = require('./isFinite');
+//isFinite is already declared in lib.es5.d.ts
+//var isFinite = require('./isFinite');
 var isSafeNumber = require("./isSafeNumber");
 
 enum counts {
@@ -59,11 +60,7 @@ var TENTHS_LESS_THAN_HUNDRED: string[] = [
  * @param {boolean} [asOrdinal] - Deprecated, use toWordsOrdinal() instead!
  * @returns {string}
  */
-function toWords(
-  number: number | string,
-  asOrdinal: boolean,
-  words: string
-): string[] {
+function toWords(number: number | string, asOrdinal?: boolean): string {
   var num = typeof number === "string" ? parseInt(number, 10) : number;
 
   if (!isFinite(num)) {
@@ -76,7 +73,7 @@ function toWords(
       "Input is not a safe number, it’s either too large or too small."
     );
   }
-  words = generateWords({ number: num });
+  const words = generateWords({ number: num });
   return asOrdinal ? makeOrdinal(words) : words;
 }
 
